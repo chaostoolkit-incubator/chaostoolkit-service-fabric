@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+junit-test-results.xml
+
+
+.vscode/
+.idea/
