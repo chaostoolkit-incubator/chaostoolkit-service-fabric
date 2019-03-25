@@ -19,7 +19,7 @@ To be used from your experiment, this package must be installed in the Python
 environment where [chaostoolkit][] already lives.
 
 ```
-$ pip install -U chaostoolkit-azure
+$ pip install -U chaostoolkit-service-fabric
 ```
 
 ## Usage

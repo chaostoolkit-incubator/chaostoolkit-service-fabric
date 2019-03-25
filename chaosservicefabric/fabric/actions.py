@@ -21,8 +21,8 @@ def start_chaos(parameters: ChaosParameters, timeout: int = 60,
 
     https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-v60-model-chaosparameters
 
-    Please see the :func:`chaosazure.fabric.auth` help for more information
-    on authenticating with the service.
+    Please see the :func:`chaosservicefabric.fabric.auth` help for more
+    information on authenticating with the service.
     """  # noqa: E501
     with auth(configuration, secrets) as info:
         url = "{}/Tools/Chaos/$/Start".format(info["endpoint"])
@@ -51,8 +51,8 @@ def stop_chaos(timeout: int = 60, configuration: Configuration = None,
     """
     Stop Chaos in your cluster.
 
-    Please see the :func:`chaosazure.fabric.auth` help for more information
-    on authenticating with the service.
+    Please see the :func:`chaosservicefabric.fabric.auth` help for more
+    information on authenticating with the service.
     """
     with auth(configuration, secrets) as info:
         url = "{}/Tools/Chaos/$/Stop".format(info["endpoint"])

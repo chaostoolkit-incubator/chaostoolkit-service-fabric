@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Top-level package for chaostoolkit-azure."""
+"""Top-level package for chaostoolkit-service-fabric."""
 import configparser
 import contextlib
 import os
@@ -200,6 +200,6 @@ def __load_exported_activities() -> List[DiscoveredActivities]:
     Extract metadata from actions and probes exposed by this extension.
     """
     activities = []
-    activities.extend(discover_actions("chaosazure.fabric.actions"))
-    activities.extend(discover_probes("chaosazure.fabric.probes"))
+    activities.extend(discover_actions("chaosservicefabric.fabric.actions"))
+    activities.extend(discover_probes("chaosservicefabric.fabric.probes"))
     return activities
