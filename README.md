@@ -1,6 +1,6 @@
 # Chaos Toolkit Extension for Service Fabric
 
-[![Python versions](https://img.shields.io/pypi/pyversions/chaostoolkit-azure.svg)](https://www.python.org/)
+[![Python versions](https://img.shields.io/pypi/pyversions/chaostoolkit-service-fabric.svg)](https://www.python.org/)
 
 This project is a collection of [actions][] and [probes][], gathered as an
 extension to the [Chaos Toolkit][chaostoolkit]. It targets the
