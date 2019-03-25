@@ -1,0 +1,25 @@
+language: python
+
+python:
+  - 3.5
+  - 3.6
+
+install:
+  - pip install -r requirements.txt -r requirements-dev.txt
+
+env:
+  global:
+  - PYPI_USER_NAME: "chaostoolkit"
+  - secure: "3AZRtxIsbyWkUCVlKdhLL0q5gJMVZjtWon7NFipdlv2OfWuwcb5/bzXkUybOrnNQWXflOQ7/UyRKIZW/u29cI0X9T6TtmB4RSPV1d9fXEWeZjiIDfEJehBfuncvQ9kQb0iYSidgayj99a4J+36ELHbkflvID0v3zIbgl4dTWFOjhNqs3JfYP8XEQqHFo24DAUWmXHRgjeyKC2sl9Hzk6Mi9LrnDxJIJzvV1C8682BFHi2DEQIYL62b8A5dcVhlj83ZUNZfPkkC6ztppuSCHn9IXFaml5ehtV1LuwaMpCOCznWFArrHIpBuCenJjNpQNDD/1yjI4I+w4U2avXG7jDsHMI1CVa34tkd7N8ZjbG6DyL16qZiZlw68dELq2t/YoIIZhnwonzCYYJwfvVGfVlN9eYKNHWcivxx0XsJwpwU8xKl0bfybOeoI2scBBewX13V749BOgt82jKW4yUw/Sp9QJ0Z9ziwtPuMflVAu452SuPC0OQxz/y4hvQP6nNlLjLP072y8skis+HTlUFmdHBETgjkq+6U5NqeVyElO68E2pArxO4N2wrU9+jkEvClGqJL5DcMNjNaOlsmA7CjU1ncajL28ORUKuvvOJ0eezzVBI31ycMtiMRVGctlu7Gz8DruXnfgvlj3cdrPleqS2LfuqAPsHzcNOlrzbkwdKYSDdQ="
+
+script: 
+  - bash ci.bash
+notifications:
+  webhooks:
+    urls:
+    - 'https://webhook.atomist.com/atomist/travis/teams/T76U4GPGF'
+    on_cancel: always
+    on_error: always
+    on_start: always
+    on_failure: always
+    on_success: always
