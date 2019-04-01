@@ -3,7 +3,7 @@ import os.path
 import requests_mock
 from urllib.parse import urlencode
 
-from chaosservicefabric.fabric.probes import chaos_report
+from chaosservicefabric.cluster.probes import chaos_report
 
 SF_BASE_URL = "https://localhost:19080"
 

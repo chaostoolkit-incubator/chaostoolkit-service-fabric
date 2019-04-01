@@ -35,7 +35,7 @@ url = 'http://chaostoolkit.org'
 license = 'Apache License Version 2.0'
 packages = [
     'chaosservicefabric',
-    'chaosservicefabric.fabric'
+    'chaosservicefabric.cluster'
 ]
 
 needs_pytest = set(['pytest', 'test']).intersection(sys.argv)
