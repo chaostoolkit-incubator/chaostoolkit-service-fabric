@@ -4,7 +4,7 @@ import pytest
 import requests_mock
 from chaoslib.exceptions import FailedActivity
 
-from chaosservicefabric.fabric.actions import start_chaos, stop_chaos
+from chaosservicefabric.cluster.actions import start_chaos, stop_chaos
 
 SF_BASE_URL = "https://localhost:19080"
 
