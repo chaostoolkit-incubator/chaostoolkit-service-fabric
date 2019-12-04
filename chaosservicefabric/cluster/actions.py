@@ -19,7 +19,7 @@ def start_chaos(parameters: ChaosParameters, timeout: int = 60,
     Start Chaos in your cluster using the given `parameters`. This is a mapping
     of keys as declared in the Service Fabric API:
 
-    https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-v60-model-chaosparameters
+    https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-model-chaosparameters
 
     Please see the :func:`chaosservicefabric.fabric.auth` help for more
     information on authenticating with the service.

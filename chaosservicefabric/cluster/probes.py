@@ -19,7 +19,7 @@ def chaos_report(timeout: int = 60, start_time_utc: str = None,
     """
     Get Chaos report using following the Service Fabric API:
 
-    https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-v60-model-chaosparameters
+    https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-model-chaosparameters
 
     Please see the :func:`chaosazure.fabric.auth` help for more information
     on authenticating with the service.

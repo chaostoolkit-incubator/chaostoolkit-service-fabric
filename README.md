@@ -10,6 +10,7 @@ extension to the [Chaos Toolkit][chaostoolkit]. It targets the
 [probes]: http://chaostoolkit.org/reference/api/experiment/#probe
 [chaostoolkit]: http://chaostoolkit.org
 [servicefabric]: https://azure.microsoft.com/en-us/services/service-fabric/
+[scparams]: https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-model-chaosparameters
 
 ## Install
 
@@ -54,6 +55,8 @@ experiment file:
     }
 }
 ```
+
+The parameters are straight from the [Service Fabric API][scparams].
 
 That's it!
 
