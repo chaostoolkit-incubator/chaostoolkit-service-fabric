@@ -3,12 +3,23 @@
 
 import sys
 import io
+import os
 
 import setuptools
 
-sys.path.insert(0, ".")
-from chaosservicefabric import __version__
-sys.path.remove(".")
+def get_version_from_package() -> str:
+    """
+    Read the package version from the source without importing it.
+    """
+    path = os.path.join(os.path.dirname(__file__), "chaosservicefabric/__init__.py")
+    path = os.path.normpath(os.path.abspath(path))
+    with open(path) as f:
+        for line in f:
+            if line.startswith("__version__"):
+                _, version = line.split(" = ", 1)
+                version = version.replace("\"", "").strip()
+                return version
+
 
 name = 'chaostoolkit-service-fabric'
 desc = 'Chaos Toolkit Extension for Microsoft Service Fabric'
@@ -24,8 +35,10 @@ classifiers = [
     'License :: OSI Approved :: Apache Software License',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.5',
-    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: Implementation',
     'Programming Language :: Python :: Implementation :: CPython'
 ]
@@ -65,7 +78,7 @@ setup_params = dict(
     install_requires=install_require,
     tests_require=test_require,
     setup_requires=pytest_runner,
-    python_requires='>=3.5.*'
+    python_requires='>=3.7'
 )
 
 

@@ -5,23 +5,32 @@ import configparser
 import contextlib
 import os
 import tempfile
-from chaoslib.discovery import initialize_discovery_result, discover_actions, \
-    discover_probes
-from chaoslib.exceptions import FailedActivity
-from chaoslib.types import Discovery, DiscoveredActivities, Secrets, \
-    Configuration
-from logzero import logger
 from typing import List
+
+from chaoslib.discovery import (
+    discover_actions,
+    discover_probes,
+    initialize_discovery_result,
+)
+from chaoslib.exceptions import FailedActivity
+from chaoslib.types import (
+    Configuration,
+    DiscoveredActivities,
+    Discovery,
+    Secrets,
+)
+from logzero import logger
 
 from chaosservicefabric.types import ServiceFabricAuth
 
 __all__ = ["auth", "discover", "__version__"]
-__version__ = '0.1.0'
+__version__ = "0.2.0"
 
 
 @contextlib.contextmanager
-def auth(configuration: Configuration = None,
-         secrets: Secrets = None) -> ServiceFabricAuth:
+def auth(
+    configuration: Configuration = None, secrets: Secrets = None
+) -> ServiceFabricAuth:
     """
     Attempt to load the Service Fabric authentication information from a local
     configuration file or the passed `configuration` mapping. The latter takes
@@ -125,9 +134,9 @@ def auth(configuration: Configuration = None,
         config_path = os.path.expanduser(config_path)
         if not os.path.exists(config_path):
             raise FailedActivity(
-                "Service Fabric configuration file not found at {}".format(
-                    config_path
-                ))
+                "Service Fabric configuration file not found "
+                "at {}".format(config_path)
+            )
 
         with open(config_path) as f:
             parser = configparser.ConfigParser()
@@ -140,16 +149,16 @@ def auth(configuration: Configuration = None,
             yield {
                 "endpoint": parser.get("servicefabric", "endpoint"),
                 "verify": not (
-                        parser.get("servicefabric", "no_verify") != "true"),
+                    parser.get("servicefabric", "no_verify") != "true"
+                ),
                 "security": {
                     "type": parser.get("servicefabric", "security"),
-                    "path": pem_path
-                }
+                    "path": pem_path,
+                },
             }
 
     elif endpoint:
         verify_tls = c.get("verify_tls", s.get("verify_tls", True))
-        use_ca = c.get("use_ca", s.get("use_ca", True))
         security_kind = s.get("security", c.get("security", "pem"))
         pem_path = s.get("pem_path", c.get("pem_path", None))
         pem_content = s.get("pem_content", c.get("pem_content", None))
@@ -157,17 +166,14 @@ def auth(configuration: Configuration = None,
         info = {
             "endpoint": endpoint,
             "verify": verify_tls,
-            "security": {
-                "type": security_kind,
-                "path": pem_path
-            }
+            "security": {"type": security_kind, "path": pem_path},
         }
 
         if not pem_path or (not os.path.exists(pem_path) and pem_content):
             # the file will be deleted when we leave the context block
-            with tempfile.NamedTemporaryFile(mode="w+",
-                                             encoding='utf-8') as pem_path:
-
+            with tempfile.NamedTemporaryFile(
+                mode="w+", encoding="utf-8"
+            ) as pem_path:
                 pem_path.write(pem_content)
                 pem_path.seek(0)
 
@@ -177,7 +183,8 @@ def auth(configuration: Configuration = None,
             yield info
     else:
         raise FailedActivity(
-            "Service Fabric client needs to know how to authenticate")
+            "Service Fabric client needs to know how to authenticate"
+        )
 
 
 def discover(discover_system: bool = True) -> Discovery:
@@ -187,7 +194,8 @@ def discover(discover_system: bool = True) -> Discovery:
     logger.info("Discovering capabilities from chaostoolkit-service-fabric")
 
     discovery = initialize_discovery_result(
-        "chaostoolkit-service-fabric", __version__, "service-fabric")
+        "chaostoolkit-service-fabric", __version__, "service-fabric"
+    )
     discovery["activities"].extend(__load_exported_activities())
     return discovery
 

@@ -1,21 +1,26 @@
 # -*- coding: utf-8 -*-
-import dateparser
 import json
+from datetime import datetime, timezone
+from typing import Any, Dict
+
+import dateparser
 import requests
 from chaoslib.exceptions import FailedActivity
 from chaoslib.types import Configuration, Secrets
-from datetime import datetime, timezone
 from logzero import logger
-from typing import Any, Dict
 
 from chaosservicefabric import auth
 
 __all__ = ["chaos_report"]
 
 
-def chaos_report(timeout: int = 60, start_time_utc: str = None,
-                 end_time_utc: str = None, configuration: Configuration = None,
-                 secrets: Secrets = None) -> Dict[str, Any]:
+def chaos_report(
+    timeout: int = 60,
+    start_time_utc: str = None,
+    end_time_utc: str = None,
+    configuration: Configuration = None,
+    secrets: Secrets = None,
+) -> Dict[str, Any]:
     """
     Get Chaos report using following the Service Fabric API:
 
@@ -36,14 +41,19 @@ def chaos_report(timeout: int = 60, start_time_utc: str = None,
             qs["EndTimeUtc"] = datetime_to_ticks(end_time_utc)
 
         r = requests.get(
-            url, headers={"Accept": "application/json"},
-            verify=info["verify"], params=qs)
+            url,
+            headers={"Accept": "application/json"},
+            verify=info["verify"],
+            params=qs,
+        )
 
         if r.status_code != 200:
             error = r.json()
             raise FailedActivity(
                 "Service Fabric Chaos failed to get report: {}".format(
-                    json.dumps(error)))
+                    json.dumps(error)
+                )
+            )
 
         logger.debug("chaos report fetched succesfully")
 
@@ -58,7 +68,7 @@ def datetime_to_ticks(when: str) -> int:
     >>> datetime_to_ticks("2 mns ago")
     ```
     """
-    dt = dateparser.parse(when, settings={'RETURN_AS_TIMEZONE_AWARE': True})
+    dt = dateparser.parse(when, settings={"RETURN_AS_TIMEZONE_AWARE": True})
     if not dt:
         raise FailedActivity("failed parsing moment: {}".format(when))
 

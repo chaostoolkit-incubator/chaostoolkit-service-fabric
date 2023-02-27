@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os.path
+
 import pytest
 import requests_mock
 from chaoslib.exceptions import FailedActivity
@@ -8,33 +9,31 @@ from chaosservicefabric.cluster.actions import start_chaos, stop_chaos
 
 SF_BASE_URL = "https://localhost:19080"
 
-CONFIG = {
-    "endpoint": SF_BASE_URL,
-    "verify_tls": False
-}
+CONFIG = {"endpoint": SF_BASE_URL, "verify_tls": False}
 
 SECRETS = {
     "pem_path": os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "cert.pem"))
+        os.path.join(os.path.dirname(__file__), "cert.pem")
+    )
 }
 
 CHAOS_PARAMS = {
     "TimeToRunInSeconds": 30,
-    "ClusterHealthPolicy": {
-        "ConsiderWarningAsError": True
-    }
+    "ClusterHealthPolicy": {"ConsiderWarningAsError": True},
 }
 
 
 def test_start_chaos():
     url = "{}/Tools/Chaos/$/Start?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+        SF_BASE_URL
+    )
 
     with requests_mock.mock() as m:
         m.post(url, complete_qs=True, json=["started!"])
 
         result = start_chaos(
-            CHAOS_PARAMS, configuration=CONFIG, secrets=SECRETS)
+            CHAOS_PARAMS, configuration=CONFIG, secrets=SECRETS
+        )
 
         assert m.called
         assert m.call_count == 1
@@ -43,8 +42,7 @@ def test_start_chaos():
 
 
 def test_stop_chaos():
-    url = "{}/Tools/Chaos/$/Stop?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+    url = "{}/Tools/Chaos/$/Stop?api-version=6.0&timeout=60".format(SF_BASE_URL)
 
     with requests_mock.mock() as m:
         m.post(url, complete_qs=True, json=["stopped!"])
@@ -59,7 +57,8 @@ def test_stop_chaos():
 
 def test_start_chaos_fails_when_missing_config_path_and_endpoint():
     url = "{}/Tools/Chaos/$/Start?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+        SF_BASE_URL
+    )
 
     with requests_mock.mock() as m:
         m.post(url, complete_qs=True, json=["started!"])
@@ -74,15 +73,20 @@ def test_start_chaos_fails_when_missing_config_path_and_endpoint():
 
 def test_start_chaos_using_local_config_file():
     url = "{}/Tools/Chaos/$/Start?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+        SF_BASE_URL
+    )
 
     with requests_mock.mock() as m:
         m.post(url, complete_qs=True, json=["started!"])
 
-        result = start_chaos(CHAOS_PARAMS, configuration={
-            "config_path": os.path.join(
-                os.path.dirname(__file__), "sfconfig")
-        })
+        result = start_chaos(
+            CHAOS_PARAMS,
+            configuration={
+                "config_path": os.path.join(
+                    os.path.dirname(__file__), "sfconfig"
+                )
+            },
+        )
 
         assert m.called
         assert m.call_count == 1
@@ -91,14 +95,14 @@ def test_start_chaos_using_local_config_file():
 
 def test_start_chaos_filas_when_local_config_file_not_found():
     url = "{}/Tools/Chaos/$/Start?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+        SF_BASE_URL
+    )
 
     with requests_mock.mock() as m:
         m.post(url, complete_qs=True, json=["started!"])
 
         with pytest.raises(FailedActivity) as x:
-            start_chaos(
-                CHAOS_PARAMS, configuration={"config_path": "whatever"})
+            start_chaos(CHAOS_PARAMS, configuration={"config_path": "whatever"})
 
         assert m.called is False
         assert m.call_count == 0
@@ -107,15 +111,21 @@ def test_start_chaos_filas_when_local_config_file_not_found():
 
 def test_start_chaos_can_fail():
     url = "{}/Tools/Chaos/$/Start?api-version=6.0&timeout=60".format(
-        SF_BASE_URL)
+        SF_BASE_URL
+    )
 
     with requests_mock.mock() as m:
-        m.post(url, complete_qs=True, json={
-            "Error": {
-                "Code": "FABRIC_E_INVALID_CONFIGURATION",
-                "Message": "boom"
-            }
-        }, status_code=400)
+        m.post(
+            url,
+            complete_qs=True,
+            json={
+                "Error": {
+                    "Code": "FABRIC_E_INVALID_CONFIGURATION",
+                    "Message": "boom",
+                }
+            },
+            status_code=400,
+        )
 
         with pytest.raises(FailedActivity) as x:
             start_chaos(CHAOS_PARAMS, configuration=CONFIG, secrets=SECRETS)

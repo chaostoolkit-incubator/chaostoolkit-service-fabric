@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import json
+from typing import Any, Dict
+
 import requests
 from chaoslib.exceptions import FailedActivity
 from chaoslib.types import Configuration, Secrets
 from logzero import logger
-from typing import Any, Dict
 
 from chaosservicefabric import auth
 from chaosservicefabric.types import ChaosParameters
@@ -12,9 +13,12 @@ from chaosservicefabric.types import ChaosParameters
 __all__ = ["start_chaos", "stop_chaos"]
 
 
-def start_chaos(parameters: ChaosParameters, timeout: int = 60,
-                configuration: Configuration = None,
-                secrets: Secrets = None) -> Dict[str, Any]:
+def start_chaos(
+    parameters: ChaosParameters,
+    timeout: int = 60,
+    configuration: Configuration = None,
+    secrets: Secrets = None,
+) -> Dict[str, Any]:
     """
     Start Chaos in your cluster using the given `parameters`. This is a mapping
     of keys as declared in the Service Fabric API:
@@ -32,22 +36,31 @@ def start_chaos(parameters: ChaosParameters, timeout: int = 60,
             qs["timeout"] = timeout
 
         r = requests.post(
-            url, headers={"Accept": "application/json"},
-            verify=info["verify"], params=qs, json=parameters)
+            url,
+            headers={"Accept": "application/json"},
+            verify=info["verify"],
+            params=qs,
+            json=parameters,
+        )
 
         if r.status_code != 200:
             error = r.json()
             raise FailedActivity(
                 "Service Fabric Chaos failed to start: {}".format(
-                    json.dumps(error)))
+                    json.dumps(error)
+                )
+            )
 
         logger.debug("chaos started succesfully")
 
         return r.json()
 
 
-def stop_chaos(timeout: int = 60, configuration: Configuration = None,
-               secrets: Secrets = None) -> Dict[str, Any]:
+def stop_chaos(
+    timeout: int = 60,
+    configuration: Configuration = None,
+    secrets: Secrets = None,
+) -> Dict[str, Any]:
     """
     Stop Chaos in your cluster.
 
@@ -62,14 +75,19 @@ def stop_chaos(timeout: int = 60, configuration: Configuration = None,
             qs["timeout"] = timeout
 
         r = requests.post(
-            url, headers={"Accept": "application/json"}, verify=info["verify"],
-            params=qs)
+            url,
+            headers={"Accept": "application/json"},
+            verify=info["verify"],
+            params=qs,
+        )
 
         if r.status_code != 200:
             error = r.json()
             raise FailedActivity(
                 "Service Fabric Chaos failed to stop: {}".format(
-                    json.dumps(error)))
+                    json.dumps(error)
+                )
+            )
 
         logger.debug("chaos stopped succesfully")
 
