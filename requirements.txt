@@ -1,4 +1,3 @@
 chaostoolkit-lib>=1.1.0
 dateparser
-logzero
 requests
