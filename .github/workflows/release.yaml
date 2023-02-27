@@ -54,7 +54,7 @@ jobs:
       - name: Download pypi artifacts
         uses: actions/download-artifact@v2-preview
         with:
-          name: chaostoolkit-toxiproxy-packages
+          name: chaostoolkit-servicefabric-packages
           path: dist
       - name: Upload wheel & source dist to GH release
         uses: ncipollo/release-action@v1
