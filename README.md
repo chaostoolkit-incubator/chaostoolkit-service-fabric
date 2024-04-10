@@ -1,5 +1,5 @@
 # Chaos Toolkit Extension for Service Fabric
-
+[![Build](https://github.com/chaostoolkit-incubator/chaostoolkit-service-fabric/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/chaostoolkit-incubator/chaostoolkit-service-fabric/actions/workflows/build-and-test.yaml)
 [![Python versions](https://img.shields.io/pypi/pyversions/chaostoolkit-service-fabric.svg)](https://www.python.org/)
 
 This project is a collection of [actions][] and [probes][], gathered as an
@@ -14,7 +14,7 @@ extension to the [Chaos Toolkit][chaostoolkit]. It targets the
 
 ## Install
 
-This package requires Python 3.5+
+This package requires Python 3.8+
 
 To be used from your experiment, this package must be installed in the Python
 environment where [chaostoolkit][] already lives.
@@ -217,7 +217,7 @@ welcome to do so. Please, fork this project, make your changes following the
 usual [PEP 8][pep8] code style, sprinkling with tests and submit a PR for
 review.
 
-[pep8]: https://pycodestyle.readthedocs.io/en/latest/
+[pep8]: https://peps.python.org/pep-0008/
 
 The Chaos Toolkit projects require all contributors must sign a
 [Developer Certificate of Origin][dco] on each commit they would like to merge
@@ -229,19 +229,10 @@ the rules of the DCO before submitting a PR.
 ### Develop
 
 If you wish to develop on this project, make sure to install the development
-dependencies. But first, [create a virtual environment][venv] and then install
-those dependencies.
-
-[venv]: http://chaostoolkit.org/reference/usage/install/#create-a-virtual-environment
+dependencies. Using [pdm](https://pdm-project.org/en/latest/):
 
 ```console
-$ pip install -r requirements-dev.txt -r requirements.txt 
-```
-
-Then, point your environment to this directory:
-
-```console
-$ python setup.py develop
+$ pdm install --dev
 ```
 
 Now, you can edit the files and they will be automatically be seen by your
@@ -252,5 +243,14 @@ environment, even when running from the `chaos` command locally.
 To run the tests for the project execute the following:
 
 ```
-$ pytest
+$ pdm run test
+```
+
+### Format & Lint
+
+You can format and lint the code as follows:
+
+```
+$ pdm run format
+$ pdm run lint
 ```
