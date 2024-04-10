@@ -208,6 +208,6 @@ def __load_exported_activities() -> List[DiscoveredActivities]:
     Extract metadata from actions and probes exposed by this extension.
     """
     activities = []
-    activities.extend(discover_actions("chaosservicefabric.fabric.actions"))
-    activities.extend(discover_probes("chaosservicefabric.fabric.probes"))
+    activities.extend(discover_actions("chaosservicefabric.cluster.actions"))
+    activities.extend(discover_probes("chaosservicefabric.cluster.probes"))
     return activities
