@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 import json
+import logging
 from typing import Any, Dict
 
 import requests
 from chaoslib.exceptions import FailedActivity
 from chaoslib.types import Configuration, Secrets
-from logzero import logger
 
 from chaosservicefabric import auth
 from chaosservicefabric.types import ChaosParameters
 
 __all__ = ["start_chaos", "stop_chaos"]
+logger = logging.getLogger("chaostoolkit")
 
 
 def start_chaos(

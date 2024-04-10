@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import logging
 from datetime import datetime, timezone
 from typing import Any, Dict
 
@@ -7,11 +8,11 @@ import dateparser
 import requests
 from chaoslib.exceptions import FailedActivity
 from chaoslib.types import Configuration, Secrets
-from logzero import logger
 
 from chaosservicefabric import auth
 
 __all__ = ["chaos_report"]
+logger = logging.getLogger("chaostoolkit")
 
 
 def chaos_report(

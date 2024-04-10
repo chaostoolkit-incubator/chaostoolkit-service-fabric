@@ -3,6 +3,7 @@
 """Top-level package for chaostoolkit-service-fabric."""
 import configparser
 import contextlib
+import logging
 import os
 import tempfile
 from typing import List
@@ -19,12 +20,12 @@ from chaoslib.types import (
     Discovery,
     Secrets,
 )
-from logzero import logger
 
 from chaosservicefabric.types import ServiceFabricAuth
 
 __all__ = ["auth", "discover", "__version__"]
 __version__ = "0.2.0"
+logger = logging.getLogger("chaostoolkit")
 
 
 @contextlib.contextmanager

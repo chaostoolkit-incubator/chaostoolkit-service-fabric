@@ -10,6 +10,10 @@
 
 [5]: https://github.com/chaostoolkit-incubator/chaostoolkit-service-fabric/issues/5
 
+### Changed
+
+* Drops logzero as new Chaos Toolkit lib now directly exposes a logger
+
 ## [0.2.0][]
 
 [0.2.0]: https://github.com/chaostoolkit-incubator/chaostoolkit-service-fabric/compare/0.1.0...0.2.0
