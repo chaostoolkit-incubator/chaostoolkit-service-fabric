@@ -34,7 +34,7 @@ experiment file:
     "name": "start-service-factory-chaos",
     "provider": {
         "type": "python",
-        "module": "chaosservicefabric.factory.actions",
+        "module": "chaosservicefabric.cluster.actions",
         "func": "start_chaos",
         "secrets": ["azure"],
         "arguments": {
@@ -49,7 +49,7 @@ experiment file:
     "name": "stop-service-factory-chaos",
     "provider": {
         "type": "python",
-        "module": "chaosservicefabric.factory.actions",
+        "module": "chaosservicefabric.cluster.actions",
         "func": "stop_chaos",
         "secrets": ["azure"]
     }
@@ -162,7 +162,7 @@ Here is a full example:
             "name": "start-service-factory-chaos",
             "provider": {
                 "type": "python",
-                "module": "chaosservicefabric.factory.actions",
+                "module": "chaosservicefabric.cluster.actions",
                 "func": "start_chaos",
                 "secrets": ["azure"],
                 "arguments": {
@@ -184,7 +184,7 @@ Here is a full example:
             "name": "stop-service-factory-chaos",
             "provider": {
                 "type": "python",
-                "module": "chaosservicefabric.factory.actions",
+                "module": "chaosservicefabric.cluster.actions",
                 "func": "stop_chaos",
                 "secrets": ["azure"]
             },
@@ -197,7 +197,7 @@ Here is a full example:
             "name": "get-service-factory-chaos-report",
             "provider": {
                 "type": "python",
-                "module": "chaosservicefabric.factory.probes",
+                "module": "chaosservicefabric.cluster.probes",
                 "func": "chaos_report",
                 "secrets": ["azure"],
                 "arguments": {
