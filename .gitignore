@@ -108,3 +108,7 @@ junit-test-results.xml
 
 .vscode/
 .idea/
+
+# pdm
+.pdm-python
+.pdm-build/

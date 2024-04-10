@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 """Top-level package for chaostoolkit-service-fabric."""
+
 import configparser
 import contextlib
 import logging
 import os
 import tempfile
+from importlib.metadata import version, PackageNotFoundError
 from typing import List
 
 from chaoslib.discovery import (
@@ -24,8 +26,12 @@ from chaoslib.types import (
 from chaosservicefabric.types import ServiceFabricAuth
 
 __all__ = ["auth", "discover", "__version__"]
-__version__ = "0.2.0"
 logger = logging.getLogger("chaostoolkit")
+
+try:
+    __version__ = version("chaostoolkit-service-fabric")
+except PackageNotFoundError:
+    __version__ = "unknown"
 
 
 @contextlib.contextmanager
@@ -135,8 +141,9 @@ def auth(
         config_path = os.path.expanduser(config_path)
         if not os.path.exists(config_path):
             raise FailedActivity(
-                "Service Fabric configuration file not found "
-                "at {}".format(config_path)
+                "Service Fabric configuration file not found " "at {}".format(
+                    config_path
+                )
             )
 
         with open(config_path) as f:

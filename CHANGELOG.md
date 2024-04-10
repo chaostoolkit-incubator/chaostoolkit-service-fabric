@@ -13,6 +13,9 @@
 ### Changed
 
 * Drops logzero as new Chaos Toolkit lib now directly exposes a logger
+* Migrated to PDM instead of setuptools for project management
+* Switched to Trusted publisher for package uploads to Pypi.org
+* Added matrix building
 
 ## [0.2.0][]
 

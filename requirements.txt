@@ -1,3 +1,0 @@
-chaostoolkit-lib>=1.42.1
-dateparser
-requests
