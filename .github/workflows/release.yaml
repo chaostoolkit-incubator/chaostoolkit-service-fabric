@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: "3.8"
     - name: Build wheels
-      run: pdm build --no-sdist
+      run: pdm build
       env:
         PDM_BUILD_SCM_VERSION: ${{github.ref_name}}
     - name: Publish package distributions to PyPI
@@ -27,7 +27,7 @@ jobs:
     - name: Upload packages as artifacts
       uses: actions/upload-artifact@v2-preview
       with:
-        name: chaostoolkit-kubernetes-packages
+        name: chaostoolkit-service-fabric-packages
         path: dist/chaostoolkit*
 
   create-gh-release:
@@ -52,7 +52,7 @@ jobs:
       - name: Download pypi artifacts
         uses: actions/download-artifact@v2-preview
         with:
-          name: chaostoolkit-kubernetes-packages
+          name: chaostoolkit-service-fabric-packages
           path: dist
       - name: Upload wheel & source dist to GH release
         uses: ncipollo/release-action@v1
